@@ -1,5 +1,8 @@
 package CabInvoiceGenerators;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 public class InvoiceGenerator {
 	
 	public static final double COST_PER_KILOMETER = 10.0;
@@ -11,5 +14,13 @@ public class InvoiceGenerator {
 		return Math.max(totalFare, MINIMUM_FARE);
  
 }
+	public InvoiceSummary calculateFare(Ride[] rides) {
+		double totalFare = 0;
+
+		for (Ride ride : rides) {
+			totalFare += this.calculateFare(ride.DISTANCE, ride.TIME);
+		}
+		return new InvoiceSummary(rides.length, totalFare);
+	}
 
 }
