@@ -54,4 +54,26 @@ public class InvoiceGeneratorTest {
 		
 		Assertions.assertEquals(expectedInvoiceSummary, invoiceSummary);
 	}
+	
+	@Test
+	public void givenMultipleRides_whenGivenWithCategories_shouldReturnInvoiceAccordingToType() {
+		Ride[] rides = {new Ride(2.0 , 5) , new Ride(5.0 , 8)};
+		
+		String category = "Premium";
+		
+		if(category == "Premium") {
+			PremiumInvoice premiumInvoice = new PremiumInvoice();
+			
+			InvoiceSummary premiumInvoiceSummary = premiumInvoice.calculateFare(rides);
+			InvoiceSummary expectedPremiumInvoiceSummary = new InvoiceSummary(2, 131.0);
+			Assertions.assertEquals(expectedPremiumInvoiceSummary, premiumInvoiceSummary);
+		}
+		else {
+			InvoiceSummary invoiceSummary = invoiceGenerator.calculateFare(rides);
+			InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 30.0);
+			Assertions.assertEquals(expectedInvoiceSummary, invoiceSummary);
+		}
+	}
 }
+
+
